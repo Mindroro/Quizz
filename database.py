@@ -40,6 +40,14 @@ def getque():
             result.append(i[0])
         return result
 
+def getans(question):
+    with sqlite3.connect("quizz.db") as connect:
+        cursor = connect.cursor()
+        sql = "SELECT * FROM questions_tb WHERE question == ?"
+        res = cursor.execute(sql, (question,)).fetchone()
+        res = res[2:]
+        return res
+
 #deltable()    
 #start()
 #addque("a", "b", "c", "d", "e")
