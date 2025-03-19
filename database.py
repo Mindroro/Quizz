@@ -48,7 +48,16 @@ def getans(question):
         res = res[2:]
         return res
 
-#deltable()    
-#start()
-#addque("a", "b", "c", "d", "e")
-#addque("f", "g", "h", "i", "j")
+def change(question, r_ans, w_ans1, w_ans2, w_ans3):
+    with sqlite3.connect("quizz.db") as connect:
+        cursor = connect.cursor()
+        sql = "UPDATE questions_tb SET right_ans = ?, false_ans1 = ?, false_ans2 = ?, false_ans3 = ? WHERE question == ?"
+        cursor.execute(sql, (r_ans, w_ans1, w_ans2, w_ans3, question,))
+        connect.commit()
+
+def remque(question):
+    with sqlite3.connect("quizz.db") as connect:
+        cursor = connect.cursor()
+        sql = "DELETE FROM questions_tb WHERE question == ?"
+        cursor.execute(sql, (question,))
+        connect.commit()
